@@ -25,6 +25,15 @@ jobs:
       - name: Check Out Git Repository
         uses: actions/checkout@v2
 
+      - name: SSH To Server 
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ SSH_HOST }}
+          username: ${{ SSH_USERNAME }}
+          key: ${{ SSH_PRIVATE_KEY }}
+          script: |
+            ll
+
       - name: Set up docker 
         uses: docker/setup-buildx-action@v1 
         id: buildx       
