@@ -39,8 +39,8 @@ jobs:
       - name: BUild And Push To Registry
         uses: docker/build-push-action@v2
         with:
-          context: ../../
-          file: Dockerfile
+          context: ./
+          file: ./Dockerfile
           push: true
           builder:  ${{ steps.buildx.outputs.name }}
           tags: ${{ github.run_id }}
