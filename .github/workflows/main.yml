@@ -8,7 +8,14 @@ on:
       - "feature/**"
       - "jitsi"
       - "master"
-    
+  push:
+    branches:
+      - "sprint-**"
+      - "develop"
+      - "feature/**"
+      - "jitsi"
+      - "master"
+      
 jobs:
   react_build:
     name: Run React Build
