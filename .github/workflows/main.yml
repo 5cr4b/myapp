@@ -1,0 +1,42 @@
+name: React App Build
+
+on:
+  pull_request:
+    branches: 
+      - "sprint-**"
+      - "develop"
+      - "feature/**"
+      - "jitsi"
+      - "master"
+    
+jobs:
+  react_build:
+    name: Run React Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Out Git Repository
+        run: actions/checkout@v2
+
+      - name: Set up docker 
+        run: docker/setup-buildx-action@v1 
+        id: buildx       
+          
+      - name: Login To Private Registry
+        run: docker/login-action@v1 
+        with:
+          #registry: ${{ secrets.DOCKER_REGISTRY }}
+          username: ${{ secrets.DOCKER_USERNAME }}  
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push To Registry
+        run: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          builder:  ${{ steps.buildx.outputs.name }}
+          tags: ${{ github.run_id }}
+
+      - name: vertify
+        run: echo ${{ steps.docker_build.outputs.digest }}
