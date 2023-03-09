@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            ll
+            ls
 
       - name: Set up docker 
         uses: docker/setup-buildx-action@v1 
